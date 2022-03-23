@@ -1,0 +1,31 @@
+replicaCount: 2
+image:
+  repository: 633788536644.dkr.ecr.us-east-1.amazonaws.com/frontend
+  pullPolicy: IfNotPresent
+
+serviceAccount:
+  create: true
+  name: frontend
+
+service:
+  type: LoadBalancer
+  port: 80
+  containerPort: 80
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1000Mi
+  requests:
+    cpu: 1000m
+    memory: 1000Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
+
+configMap:
+  enabled: false
+
